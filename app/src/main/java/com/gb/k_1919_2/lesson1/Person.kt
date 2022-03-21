@@ -4,11 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 
-open class Person constructor(val name:String="defaultName",var age:Int=20) {
+internal open class Person constructor(val name:String="defaultName",var age:Int=20) {
 
     fun test(testParam:String="edrfgedr"){
         testParam2 = "dsefrg"
         val testParam3 = testParam2
+        val javaText :JavaTest = JavaTest()
     }
 
     var p =""
@@ -33,10 +34,9 @@ open class Person constructor(val name:String="defaultName",var age:Int=20) {
     }
 }
 
-fun test(testParam:String){
-}
 
-class Student(name:String,age:Int) : Person(name,age), View.OnClickListener,Testable1,Testable2,Testable3,Testable4,Testable5{
+
+internal class Student(name:String,age:Int) : Person(name,age), View.OnClickListener,Testable1,Testable2,Testable3,Testable4,Testable5{
 
     override fun onClick(p0: View?) {
 

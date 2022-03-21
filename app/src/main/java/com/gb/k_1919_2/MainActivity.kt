@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import com.gb.k_1919_2.lesson1.JavaTest
 import com.gb.k_1919_2.lesson1.Person
 import com.gb.k_1919_2.lesson1.test
 
@@ -14,6 +15,15 @@ class MainActivity : AppCompatActivity() {
         test("")
 
         Person(age=30,name="newName").test()
+        JavaTestNew().foo()
+
     }
 }
+
+class JavaTestNew:JavaTest(){
+    fun foo():Int{
+        return i
+    }
+}
+
 
