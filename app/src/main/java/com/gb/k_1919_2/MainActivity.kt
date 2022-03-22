@@ -1,12 +1,9 @@
 package com.gb.k_1919_2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import com.gb.k_1919_2.lesson1.*
-import com.gb.k_1919_2.lesson1.Person
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +22,10 @@ class MainActivity : AppCompatActivity() {
         Log.d("mylogs","${data1.age}")
         Log.d("mylogs","${data2.toString()}")
         Log.d("mylogs","${data2.equals(data1)}")
-        Log.d("mylogs","${Database.getTest()}")
+        Log.d("mylogs","${Database.getTestIf()}")
+        Log.d("mylogs","${Database.getTestWhen(TestEnum.test1)}")
+
+        Database.getTestCycle()
     }
 }
 

@@ -10,8 +10,7 @@ internal open class Person constructor(val name:String="defaultName",var age:Int
         testParam2 = "dsefrg"
         val testParam3 = testParam2
         val javaText :JavaTest = JavaTest()
-
-
+        JavaTest().i
 
     }
 
