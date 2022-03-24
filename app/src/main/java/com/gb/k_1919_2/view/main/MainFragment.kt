@@ -15,6 +15,7 @@ import com.gb.k_1919_2.R
 import com.gb.k_1919_2.databinding.FragmentMainBinding
 import com.gb.k_1919_2.viewmodel.AppState
 import com.gb.k_1919_2.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
@@ -23,7 +24,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        //binding=null
+        //binding=null // TODO HW попробуйте занулить
     }
 
     override fun onCreateView(
@@ -57,18 +58,21 @@ class MainFragment : Fragment() {
         when (data){
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
-                binding.message.text = "Не получилось ${data.error}"
+                Snackbar.make(binding.mainView, "Не получилось ${data.error}", Snackbar.LENGTH_LONG).show()
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
-                binding.message.text = "Получилось"
+                binding.cityName.text = data.weatherData.city.name.toString()
+                binding.temperatureValue.text = data.weatherData.temperature.toString()
+                binding.feelsLikeValue.text = data.weatherData.feelsLike.toString()
+                binding.cityCoordinates.text = "${data.weatherData.city.lat} ${data.weatherData.city.lon}"
+                Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_LONG).show()
                 //Toast.makeText(requireContext(),"РАБОТАЕТ",Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     companion object {
