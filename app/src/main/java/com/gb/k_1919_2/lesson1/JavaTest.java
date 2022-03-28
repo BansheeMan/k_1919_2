@@ -5,7 +5,24 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JavaTest   {
+
+    /*public void mainMyConsumer(){
+        List<Person> peoplePerson = new ArrayList<Person>();
+        List<? extends Object> peopleObject = peoplePerson;
+        peopleObject.add(new Object()); // не можем ничего добавить
+        Object object=  peopleObject.get(0);
+    }
+    public void mainMyProducer(){
+        List<Object> peopleObject = new ArrayList<Object>();
+        List<? super Person>  peoplePerson= peopleObject;
+        peoplePerson.add(new Person("wr",12)); // могу добавить
+        Person person=  peoplePerson.get(0); // не можем получить
+    }*/
+
     protected int i = 0;
     public void mainMy(){
         String s =null;

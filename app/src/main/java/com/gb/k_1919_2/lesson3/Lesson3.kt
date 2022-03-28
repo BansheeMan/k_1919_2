@@ -32,9 +32,29 @@ class Lesson3 {
         writeAll(10.0)
         writeAll("")
 
+        /*val peopleAny:MutableList<Any> = mutableListOf(Person("name1",20),Person("name2",22))
+        val peoplePerson:MutableList<Person> =mutableListOf(Person("name1",20),Person("name2",22))
+        val peopleMix:MutableList<Any> = peoplePerson*/
 
+        val producerAny:Producer<Any> = Producer<Person>()
 
     }
+
+    class Producer<out T>{
+        private val content  = mutableListOf<T>()
+        fun test(param:String):T{
+            return content.last()
+        }
+        fun test2():Int{
+            return 1
+        }
+    }
+    class Consumer<in T>{
+        fun test(params:T):String{
+
+        }
+    }
+
 
 
 
