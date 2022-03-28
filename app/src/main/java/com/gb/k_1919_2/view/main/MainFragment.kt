@@ -20,18 +20,23 @@ import com.google.android.material.snackbar.Snackbar
 class MainFragment : Fragment() {
 
 
-    lateinit var binding:FragmentMainBinding// утечка памяти
+
+    private var _binding:FragmentMainBinding? = null
+    private val binding:FragmentMainBinding
+        get() {
+            return _binding!!
+        }
 
     override fun onDestroy() {
         super.onDestroy()
-        //binding=null // TODO HW попробуйте занулить
+        _binding=null
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =FragmentMainBinding.inflate(inflater,container, false)
+        _binding =FragmentMainBinding.inflate(inflater,container, false)
         //return inflater.inflate(R.layout.fragment_main, container, false)
         return binding.root
     }
@@ -42,6 +47,7 @@ class MainFragment : Fragment() {
         //binding.btnOne.setOnClickListener {  }
        // view.findViewById<TextView>(R.id.btnOne).setOnClickListener {  }
        // view.findViewById<Button>(R.id.btnOne).setOnClickListener {  }
+
 
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         //val observer = Observer<Any>{ renderData(it) }
