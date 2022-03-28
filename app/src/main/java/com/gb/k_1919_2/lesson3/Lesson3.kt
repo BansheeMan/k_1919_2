@@ -50,7 +50,7 @@ class Lesson3 {
         }
     }
     class Consumer<in T>{
-        fun test(params:T):String{
+        fun test(params:T){
 
         }
     }
