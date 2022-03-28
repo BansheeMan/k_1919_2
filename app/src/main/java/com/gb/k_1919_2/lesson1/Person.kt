@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 
-internal open class Person constructor(val name: String = "defaultName", var age: Int = 20) {
+open class Person constructor(val name: String = "defaultName", var age: Int = 20) {
 
     fun test(testParam: String = "edrfgedr") {
         var temp:Int= testParamNull ?: 0
