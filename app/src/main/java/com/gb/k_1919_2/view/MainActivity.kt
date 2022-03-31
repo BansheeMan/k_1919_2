@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.gb.k_1919_2.R
 import com.gb.k_1919_2.lesson3.Lesson3
 import com.gb.k_1919_2.lesson3.someViewGroup
+import com.gb.k_1919_2.lesson4.BaseImpl
+import com.gb.k_1919_2.lesson4.BossDelegate
 import com.gb.k_1919_2.lesson4.Lesson4
 import com.gb.k_1919_2.lesson4.Speakable
 import com.gb.k_1919_2.view.weatherlist.WeatherListFragment
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         val lesson3 = Lesson3()
         val lesson4 = Lesson4()
-        with (lesson4){
+        with(lesson4) {
             this.lesson3 = lesson3
             some1()//1 способ
             f = lesson3.f//2 способ
@@ -59,14 +61,17 @@ class MainActivity : AppCompatActivity() {
                 1.0
             }
             was()
-            main(this@MainActivity)
+            //main(this@MainActivity)
+        }
+
+        val worker = BaseImpl()
+        BossDelegate(worker, worker).run {
+            manipulate()
         }
     }
 
     fun Lesson4.was() {
         Log.d("@@@", "Был ${this.pr}")
-
-
     }
 
 

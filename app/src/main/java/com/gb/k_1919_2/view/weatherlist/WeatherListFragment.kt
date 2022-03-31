@@ -44,18 +44,24 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
     }
 
     var isRussian = true
+    private val viewModel:MainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.apply {// TODO HW вынесты в initRecycler()
-            this.adapter = adapter
-            layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.also {// TODO HW вынесты в initRecycler()
+            it.adapter = adapter
+            it.layoutManager = LinearLayoutManager(requireContext())
         }
-
-        val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val observer = {data: AppState -> renderData(data)}
         viewModel.getData().observe(viewLifecycleOwner, observer)
+        setupFab()
+        viewModel.getWeatherRussia()
+    }
 
+    private fun setupFab() {
         binding.floatingActionButton.setOnClickListener {
             isRussian = !isRussian
             if (isRussian) {
@@ -76,7 +82,6 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
                 viewModel.getWeatherWorld()
             }
         }
-        viewModel.getWeatherRussia()
     }
 
     private fun renderData(data: AppState) {
