@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.gb.k_1919_2.R
 import com.gb.k_1919_2.lesson3.Lesson3
 import com.gb.k_1919_2.lesson3.someViewGroup
@@ -56,16 +57,22 @@ class MainActivity : AppCompatActivity() {
         lesson4.some5()
 
         //lesson4.some6(lesson3.callbackLambda2)
-        lesson4.some6 { string:String,i:Int -> Log.d("@@@", " Сообщение $string")
+        lesson4.some6 { string: String, i: Int ->
+            Log.d("@@@", " Сообщение $string")
             1.0
         }
 
         lesson4.was()
+        lesson4.main(this)
+
+
 
     }
 
-    fun Lesson4.was(){
-        Log.d("@@@","Был ${this.pr}")
+    fun Lesson4.was() {
+        Log.d("@@@", "Был ${this.pr}")
+
+
     }
 
 

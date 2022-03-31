@@ -1,7 +1,13 @@
 package com.gb.k_1919_2.lesson4
 
+import android.content.Context
 import android.util.Log
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.gb.k_1919_2.R
+import com.gb.k_1919_2.lesson1.Person
 import com.gb.k_1919_2.lesson3.Lesson3
+import com.gb.k_1919_2.view.MainActivity
 
 class Lesson4 {
     lateinit var lesson3: Lesson3 // 1 способ
@@ -55,10 +61,60 @@ class Lesson4 {
         val boolean = _c('f')
     }
 
-    fun main(){
-        funHigh(_f,__f,_c)
+    fun main(mainActivity: MainActivity){
+        Log.d("@@@","До  $person")
+        val newPersonLet = person?.let { it->
+            it.age = 10
+            it.name = "LetName"
+            1
+        }
+        Log.d("@@@","После  let  $person")
+        val newPersonRun = person?.run {
+            age = 99
+            name = "RunNAme"
+            this@Lesson4.pr
+            // this.pr Ошибка
+            pr
+            2
+        }
+        Log.d("@@@","После  run  $person")
+        val newPersonAlso = person?.also {
+            it.age = 55
+            it.name = "AlsoName"
+            3
+        }
+        Log.d("@@@","После  also  $person")
+        val newPersonApply = person?.apply {
+            age = 66
+            name = "ApplyName"
+            4
+        }
+        Log.d("@@@","После  apply  $person")
+        Log.d("@@@","Результат  $newPersonLet")
+        Log.d("@@@","Результат  $newPersonRun")
+        Log.d("@@@","Результат  $newPersonAlso")
+        Log.d("@@@","Результат  $newPersonApply")
+
+
+        with(person!!){
+            age = 66
+            name = "ApplyName"
+        }
+
+        /** Способ 1 ( не правильниый) **/
+        val textView = TextView(mainActivity)
+        textView.text = "segewrg"
+        textView.textSize = 30f
+        mainActivity.findViewById<ConstraintLayout>(R.id.layout).addView(textView)
+
+        /** Способ 2 ( правильниый) **/
+        mainActivity.findViewById<ConstraintLayout>(R.id.layout).addView(TextView(mainActivity).apply {
+            text = "segewrg"
+            textSize = 30f
+        })
     }
 
+    private val person:Person? = Person("testName",20)
     fun was(){
         Log.d("@@@","НЕ Был $pr")
     }
