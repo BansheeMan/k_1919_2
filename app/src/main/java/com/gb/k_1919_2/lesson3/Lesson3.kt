@@ -53,12 +53,18 @@ class Lesson3 : Speakable {
 
 
     fun test() {
-        val people: List<Person> = mutableListOf(Person("name1", 20), Person("name2", 22))
-        people.get(0).age
-        people[0].age
+        val people: List<Person?> = mutableListOf(Person("name1", 20), Person("name2", 22))
+        people.get(0)?.apply{
+            age = 1
+        }
+        people[0]?.apply{
+            age = 1
+        }
         people.size
         val peopleHack = people.toMutableList()
-        val peopleAge: List<Person> = people.filter { it.age > 20 }
+        val peopleAge: List<Person?> = people.apply {
+            filter { it!!.age > 20 }
+        }
 
         val arr1 = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         val arr2 = arr1.map { it * 2 }

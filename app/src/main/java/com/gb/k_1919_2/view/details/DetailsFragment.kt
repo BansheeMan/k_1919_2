@@ -28,7 +28,7 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         //return inflater.inflate(R.layout.fragment_main, container, false)
         return binding.root
@@ -37,23 +37,31 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather: Weather = requireArguments().getParcelable<Weather>(KEY_BUNDLE_WEATHER)!!
-        renderData(weather)
+        arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
+            renderData(it)
+        }
+
     }
 
     private fun renderData(weather: Weather) {
         with(binding) {
             loadingLayout.visibility = View.GONE
             cityName.text = weather.city.name
-            with(weather) {
+            with(weather) { //  TODO HW что-то не так
                 temperatureValue.text = temperature.toString()
                 feelsLikeValue.text = feelsLike.toString()
                 cityCoordinates.text = "${city.lat} ${city.lon}"
             }
-            Snackbar.make(mainView, "Получилось", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(mainView, "Получилось", Snackbar.LENGTH_LONG).show()  //  TODO HW можно вынести в функцию-расширение
+            mainView.showSnackBar()  //  TODO HW можно вынести в функцию-расширение
         }
 
         //Toast.makeText(requireContext(),"РАБОТАЕТ",Toast.LENGTH_SHORT).show()
+    }
+
+    //  TODO HW
+    fun View.showSnackBar(){
+
     }
 
     companion object {

@@ -89,6 +89,7 @@ class Lesson4 {
             name = "ApplyName"
             4
         }
+
         Log.d("@@@","После  apply  $person")
         Log.d("@@@","Результат  $newPersonLet")
         Log.d("@@@","Результат  $newPersonRun")
@@ -112,6 +113,8 @@ class Lesson4 {
             text = "segewrg"
             textSize = 30f
         })
+
+
     }
 
     private val person:Person? = Person("testName",20)

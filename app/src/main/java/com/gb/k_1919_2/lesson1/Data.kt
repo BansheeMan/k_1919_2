@@ -19,38 +19,41 @@ object Database {
         for (one in list) {
             Log.d("mylogs", "$one getTestCycle")
         }
-        list.forEach {
-            Log.d("mylogs", "$it getTestCycle")
+        with(list) {
+            forEach {
+                Log.d("mylogs", "$it getTestCycle")
+            }
+
+            forEach { one: Int ->
+                Log.d("mylogs", "$one getTestCycle")
+            }
         }
 
-        list.forEach { one: Int ->
-            Log.d("mylogs", "$one getTestCycle")
-        }
 
-        repeat(10){
+        repeat(10) {
             Log.d("mylogs", "$it getTestCycle")
         }
 
         val test = 1..10
-        for(i in 1..10){
+        for (i in 1..10) {
             Log.d("mylogs", "$i getTestCycle")
         }
 
-        for(i in 1 until 10 step 2){
+        for (i in 1 until 10 step 2) {
             Log.d("mylogs", "$i getTestCycle")
         }
 
-        for(i in 10 downTo 1 step 3){
+        for (i in 10 downTo 1 step 3) {
             Log.d("mylogs", "$i getTestCycle")
         }
         var counter = 10;
-        while (counter-->0){
+        while (counter-- > 0) {
             Log.d("mylogs", "$counter getTestCycle")
         }
         counter = 10;
         do {
             Log.d("mylogs", "$counter getTestCycle")
-        }while (counter-->0)
+        } while (counter-- > 0)
     }
 
     fun getTestIf(): String {
