@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gb.k_1919_2.databinding.FragmentDetailsBinding
+import com.gb.k_1919_2.repository.OnServerResponse
 import com.gb.k_1919_2.repository.Weather
+import com.gb.k_1919_2.repository.WeatherDTO
+import com.gb.k_1919_2.repository.WeatherLoader
 import com.gb.k_1919_2.utlis.KEY_BUNDLE_WEATHER
 import com.gb.k_1919_2.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(), OnServerResponse {
 
 
     private var _binding: FragmentDetailsBinding? = null
@@ -35,24 +38,29 @@ class DetailsFragment : Fragment() {
     }
 
 
+    lateinit var currentCityName: String
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
-            renderData(it)
+            currentCityName = it.city.name
+            //Thread{
+            WeatherLoader(this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
+            //}.start()
         }
 
     }
 
-    private fun renderData(weather: Weather) {
+    private fun renderData(weather: WeatherDTO) {
         with(binding) {
             loadingLayout.visibility = View.GONE
-            cityName.text = weather.city.name
+            cityName.text = currentCityName
             with(weather) { //  TODO HW что-то не так
-                temperatureValue.text = temperature.toString()
-                feelsLikeValue.text = feelsLike.toString()
-                cityCoordinates.text = "${city.lat} ${city.lon}"
+                temperatureValue.text = weather.factDTO.temperature.toString()
+                feelsLikeValue.text = weather.factDTO.feelsLike.toString()
+                cityCoordinates.text = "${weather.infoDTO.lat} ${weather.infoDTO.lon}"
             }
-            Snackbar.make(mainView, "Получилось", Snackbar.LENGTH_LONG).show()  //  TODO HW можно вынести в функцию-расширение
+            Snackbar.make(mainView, "Получилось", Snackbar.LENGTH_LONG)
+                .show()  //  TODO HW можно вынести в функцию-расширение
             mainView.showSnackBar()  //  TODO HW можно вынести в функцию-расширение
         }
 
@@ -60,7 +68,7 @@ class DetailsFragment : Fragment() {
     }
 
     //  TODO HW
-    fun View.showSnackBar(){
+    fun View.showSnackBar() {
 
     }
 
@@ -71,6 +79,10 @@ class DetailsFragment : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onResponse(weatherDTO: WeatherDTO) {
+        renderData(weatherDTO)
     }
 }
 
