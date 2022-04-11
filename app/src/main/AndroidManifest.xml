@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.K_1919_2">
         <activity
-            android:name=".view.MainActivityWebView"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
