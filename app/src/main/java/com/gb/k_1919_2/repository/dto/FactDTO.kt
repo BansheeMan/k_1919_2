@@ -1,8 +1,11 @@
-package com.gb.k_1919_2.repository
+package com.gb.k_1919_2.repository.dto
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class FactDTO(
     @SerializedName("condition")
     val condition: String,
@@ -32,4 +35,4 @@ data class FactDTO(
     val windGust: Double,
     @SerializedName("wind_speed")
     val windSpeed: Double
-)
+):Parcelable

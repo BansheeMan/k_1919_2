@@ -1,8 +1,11 @@
-package com.gb.k_1919_2.repository
+package com.gb.k_1919_2.repository.dto
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class PartDTO(
     @SerializedName("condition")
     val condition: String,
@@ -19,7 +22,7 @@ data class PartDTO(
     @SerializedName("polar")
     val polar: Boolean,
     @SerializedName("prec_mm")
-    val precMm: Int,
+    val precMm: Double,
     @SerializedName("prec_period")
     val precPeriod: Int,
     @SerializedName("prec_prob")
@@ -40,4 +43,4 @@ data class PartDTO(
     val windGust: Double,
     @SerializedName("wind_speed")
     val windSpeed: Double
-)
+): Parcelable
