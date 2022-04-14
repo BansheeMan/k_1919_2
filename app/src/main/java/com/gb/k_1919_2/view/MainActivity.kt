@@ -1,6 +1,7 @@
 package com.gb.k_1919_2.view
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -12,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.gb.k_1919_2.R
 import com.gb.k_1919_2.lesson3.Lesson3
 import com.gb.k_1919_2.lesson3.someViewGroup
@@ -20,7 +22,10 @@ import com.gb.k_1919_2.lesson4.BossDelegate
 import com.gb.k_1919_2.lesson4.Lesson4
 import com.gb.k_1919_2.lesson4.Speakable
 import com.gb.k_1919_2.lesson6.MainService
+import com.gb.k_1919_2.lesson6.MyBroadcastReceiver
 import com.gb.k_1919_2.lesson6.ThreadsFragment
+import com.gb.k_1919_2.utlis.KEY_BUNDLE_ACTIVITY_MESSAGE
+import com.gb.k_1919_2.utlis.KEY_WAVE
 import com.gb.k_1919_2.view.weatherlist.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +37,13 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
 
-        startService(Intent(this,MainService::class.java))
+        startService(Intent(this,MainService::class.java).apply {
+            putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE,"Привет сервис") // TODO HW key1 - должен быть в константах
+        })
+
+        val receiver  = MyBroadcastReceiver()
+        registerReceiver(receiver, IntentFilter(KEY_WAVE))
+        //LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter("myaction"))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
