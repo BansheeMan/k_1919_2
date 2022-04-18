@@ -6,7 +6,7 @@ import com.gb.k_1919_2.BuildConfig
 import com.gb.k_1919_2.repository.dto.WeatherDTO
 import com.gb.k_1919_2.utlis.YANDEX_API_KEY
 import com.gb.k_1919_2.utlis.YANDEX_DOMAIN
-import com.gb.k_1919_2.utlis.YANDEX_PATH
+import com.gb.k_1919_2.utlis.YANDEX_ENDPOINT
 
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -22,7 +22,7 @@ class WeatherLoader(
 
     fun loadWeather(lat: Double, lon: Double) {
         val urlText =
-            "$YANDEX_DOMAIN${YANDEX_PATH}lat=$lat&lon=$lon" //TODO HW выносим https://api.weather.yandex.ru/v2/informers? в Utlis.kt константы
+            "$YANDEX_DOMAIN${YANDEX_ENDPOINT}lat=$lat&lon=$lon" //TODO HW выносим https://api.weather.yandex.ru/v2/informers? в Utlis.kt константы
         //val urlText = "http://212.86.114.27/v2/informers?lat=$lat&lon=$lon"
         val uri = URL(urlText)
 
