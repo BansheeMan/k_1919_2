@@ -18,8 +18,7 @@ const val KEY_WAVE_SERVICE_BROADCAST = "myaction_way"
 const val KEY_BUNDLE_SERVICE_MESSAGE = "key2"
 const val KEY_BUNDLE_ACTIVITY_MESSAGE = "key1"
 const val KEY_WAVE = "myaction"
-class Utlis {
-}
+
 
 fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
     val fact: FactDTO = weatherDTO.factDTO
