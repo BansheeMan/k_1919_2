@@ -24,10 +24,13 @@ class DetailsRepositoryRetrofit2Impl:DetailsRepository {
                     response.body()?.let {
                         callbackMy.onResponse(convertDtoToModel(it))
                     }
+                }else{
+                    callbackMy.onFail()
                 }
             }
             override fun onFailure(call: Call<WeatherDTO>, t: Throwable) {
                // TODO HW
+                callbackMy.onFail()
             }
         })
     }
