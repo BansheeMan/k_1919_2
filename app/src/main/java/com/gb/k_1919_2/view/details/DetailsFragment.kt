@@ -10,12 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.gb.k_1919_2.BuildConfig
 import com.gb.k_1919_2.databinding.FragmentDetailsBinding
 import com.gb.k_1919_2.repository.*
 import com.gb.k_1919_2.repository.dto.WeatherDTO
 import com.gb.k_1919_2.utlis.*
 import com.gb.k_1919_2.viewmodel.ResponseState
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import okhttp3.*
+import java.io.IOException
+
 
 class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
 
@@ -65,14 +70,46 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
             //WeatherLoader(this@DetailsFragment,this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
             //}.start()
 
-            requireActivity().startService(Intent(requireContext(),DetailsService::class.java).apply {
+           /* requireActivity().startService(Intent(requireContext(),DetailsService::class.java).apply {
                 putExtra(KEY_BUNDLE_LAT,it.city.lat)
                 putExtra(KEY_BUNDLE_LON,it.city.lon)
-            })
+            })*/
+            getWeather(it.city.lat,it.city.lon)
         }
+    }
 
+    private fun getWeather(lat:Double, lon:Double){
+        binding.loadingLayout.visibility = View.VISIBLE // renderData(Loading)
 
+        val client = OkHttpClient()
+        val builder = Request.Builder()
+        builder.addHeader(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+        builder.url("$YANDEX_DOMAIN${YANDEX_ENDPOINT}lat=$lat&lon=$lon")
+        val request = builder.build()
+        val callback:Callback = object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                // TODO HW
+                //renderData()
+            }
+            override fun onResponse(call: Call, response: Response) {
+                if(response.isSuccessful){
+                    val weatherDTO: WeatherDTO = Gson().fromJson(response.body()!!.string(), WeatherDTO::class.java)
+                    requireActivity().runOnUiThread {
+                        renderData(weatherDTO)
+                    }
+                }else{
+                    // TODO HW
+                }
+            }
+        }
+        val call = client.newCall(request)
+        Thread{
+            // работа 1
+            val response = call.execute()
+            // работа 2 с использованием response
+        }.start()
 
+        call.enqueue(callback)
     }
 
     private fun renderData(weather: WeatherDTO) {
