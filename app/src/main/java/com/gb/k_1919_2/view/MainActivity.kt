@@ -24,6 +24,7 @@ import com.gb.k_1919_2.lesson4.Speakable
 import com.gb.k_1919_2.lesson6.MainService
 import com.gb.k_1919_2.lesson6.MyBroadcastReceiver
 import com.gb.k_1919_2.lesson6.ThreadsFragment
+import com.gb.k_1919_2.repository.CitiesRepositoryRetrofit2Impl
 import com.gb.k_1919_2.utlis.KEY_BUNDLE_ACTIVITY_MESSAGE
 import com.gb.k_1919_2.utlis.KEY_WAVE
 import com.gb.k_1919_2.view.weatherlist.WeatherListFragment
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         //registerReceiver(receiver, IntentFilter(KEY_WAVE))
         registerReceiver(receiver, IntentFilter("android.intent.action.AIRPLANE_MODE"))
         //LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter("myaction"))
+        CitiesRepositoryRetrofit2Impl().getCityList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
