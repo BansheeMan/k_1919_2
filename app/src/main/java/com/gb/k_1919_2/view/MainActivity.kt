@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.gb.k_1919_2.MyApp
 import com.gb.k_1919_2.R
 import com.gb.k_1919_2.lesson4.Lesson4
 import com.gb.k_1919_2.lesson6.MainService
@@ -43,9 +44,10 @@ class MainActivity : AppCompatActivity() {
         editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN,true)
         editor.apply()
 
-
         val defaultValueIsRussian = true
         sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN,defaultValueIsRussian)
+
+        MyApp.getHistoryDao().getAll()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
