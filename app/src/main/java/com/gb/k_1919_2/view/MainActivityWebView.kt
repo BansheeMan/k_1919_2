@@ -1,32 +1,13 @@
 package com.gb.k_1919_2.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebViewClient
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.gb.k_1919_2.R
 import com.gb.k_1919_2.databinding.ActivityMainWebviewBinding
-import com.gb.k_1919_2.lesson3.Lesson3
-import com.gb.k_1919_2.lesson3.someViewGroup
-import com.gb.k_1919_2.lesson4.BaseImpl
-import com.gb.k_1919_2.lesson4.BossDelegate
-import com.gb.k_1919_2.lesson4.Lesson4
-import com.gb.k_1919_2.lesson4.Speakable
-import com.gb.k_1919_2.view.weatherlist.WeatherListFragment
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.net.HttpURLConnection
 import java.net.URL
-import java.util.stream.Collector
 import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 

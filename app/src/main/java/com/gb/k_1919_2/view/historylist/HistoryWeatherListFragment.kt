@@ -9,24 +9,26 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gb.k_1919_2.R
+import com.gb.k_1919_2.databinding.FragmentHistoryWeatherListBinding
 import com.gb.k_1919_2.databinding.FragmentWeatherListBinding
 import com.gb.k_1919_2.repository.Weather
 import com.gb.k_1919_2.utlis.KEY_BUNDLE_WEATHER
 import com.gb.k_1919_2.view.details.DetailsFragment
 import com.gb.k_1919_2.viewmodel.AppState
+import com.gb.k_1919_2.viewmodel.HistoryViewModel
 import com.gb.k_1919_2.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class WeatherListFragment : Fragment(),OnItemListClickListener {
+class HistoryWeatherListFragment : Fragment() {
 
 
-    private var _binding: FragmentWeatherListBinding? = null
-    private val binding: FragmentWeatherListBinding
+    private var _binding: FragmentHistoryWeatherListBinding? = null
+    private val binding: FragmentHistoryWeatherListBinding
         get() {
             return _binding!!
         }
 
-    private val adapter = WeatherListAdapter(this)
+    private val adapter = HistoryWeatherListAdapter()
 
     override fun onDestroy() {
         super.onDestroy()
@@ -37,13 +39,13 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWeatherListBinding.inflate(inflater, container, false)
+        _binding = FragmentHistoryWeatherListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     var isRussian = true
-    private val viewModel:MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    private val viewModel:HistoryViewModel by lazy {
+        ViewModelProvider(this).get(HistoryViewModel::class.java)
     }
 
 
@@ -55,45 +57,22 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
         }
         val observer = {data: AppState -> renderData(data)}
         viewModel.getData().observe(viewLifecycleOwner, observer)
-        setupFab()
-        viewModel.getWeatherRussia()
+        viewModel.getAll()
     }
 
-    private fun setupFab() {
-        binding.floatingActionButton.setOnClickListener {
-            isRussian = !isRussian
-            if (isRussian) {
-                viewModel.getWeatherRussia()
-                binding.floatingActionButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_russia
-                    )
-                )
-            } else {
-                binding.floatingActionButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_earth
-                    )
-                )
-                viewModel.getWeatherWorld()
-            }
-        }
-    }
 
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.Error -> {
-                binding.loadingLayout.visibility = View.GONE
+                //binding.loadingLayout.visibility = View.GONE
                 Snackbar.make(binding.root, "Не получилось ${data.error}", Snackbar.LENGTH_LONG)
                     .show()
             }
             is AppState.Loading -> {
-                binding.loadingLayout.visibility = View.VISIBLE
+                //binding.loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Success -> {
-                binding.loadingLayout.visibility = View.GONE
+                //binding.loadingLayout.visibility = View.GONE
                 adapter.setData(data.weatherList)
             }
         }
@@ -101,16 +80,8 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance() = WeatherListFragment()
+        fun newInstance() = HistoryWeatherListFragment()
     }
 
-    override fun onItemClick(weather: Weather) {
-        requireActivity().supportFragmentManager.beginTransaction().add(
-            R.id.container,
-            DetailsFragment.newInstance(Bundle().apply {
-                putParcelable(KEY_BUNDLE_WEATHER, weather)
-            })
-        ).addToBackStack("").commit()
-    }
 }
 

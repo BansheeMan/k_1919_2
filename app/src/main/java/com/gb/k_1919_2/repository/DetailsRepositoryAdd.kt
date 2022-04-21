@@ -4,6 +4,6 @@ import com.gb.k_1919_2.repository.dto.WeatherDTO
 import com.gb.k_1919_2.viewmodel.DetailsViewModel
 
 
-interface DetailsRepository {
-    fun getWeatherDetails(city:City,callback: DetailsViewModel.Callback)
+interface DetailsRepositoryAdd {
+    fun addWeather(weather: Weather)
 }

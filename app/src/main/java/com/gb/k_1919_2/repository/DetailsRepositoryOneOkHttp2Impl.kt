@@ -11,9 +11,7 @@ import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-import java.io.IOException
-
-class DetailsRepositoryOkHttpImpl:DetailsRepository {
+class DetailsRepositoryOneOkHttp2Impl:DetailsRepositoryOne {
     override fun getWeatherDetails(city: City,callback: DetailsViewModel.Callback) {
         val client = OkHttpClient()
         val builder = Request.Builder()

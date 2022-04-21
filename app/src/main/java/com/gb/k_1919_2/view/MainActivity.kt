@@ -14,10 +14,10 @@ import com.gb.k_1919_2.lesson4.Lesson4
 import com.gb.k_1919_2.lesson6.MainService
 import com.gb.k_1919_2.lesson6.MyBroadcastReceiver
 import com.gb.k_1919_2.lesson6.ThreadsFragment
-import com.gb.k_1919_2.repository.dto.WeatherDTO
 import com.gb.k_1919_2.utlis.KEY_BUNDLE_ACTIVITY_MESSAGE
 import com.gb.k_1919_2.utlis.KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN
 import com.gb.k_1919_2.utlis.KEY_SP_FILE_NAME_1
+import com.gb.k_1919_2.view.weatherlist.HistoryWeatherListFragment
 import com.gb.k_1919_2.view.weatherlist.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -59,7 +59,11 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId){
             R.id.action_threads->{
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ThreadsFragment.newInstance()).commit()
+                    .replace(R.id.container, ThreadsFragment.newInstance()).addToBackStack("").commit()
+            }
+            R.id.action_history->{
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
             }
         }
         return super.onOptionsItemSelected(item)

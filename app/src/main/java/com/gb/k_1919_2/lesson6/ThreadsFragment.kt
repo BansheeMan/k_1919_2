@@ -8,22 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.gb.k_1919_2.R
 import com.gb.k_1919_2.databinding.FragmentThreadsBinding
-import com.gb.k_1919_2.databinding.FragmentWeatherListBinding
-import com.gb.k_1919_2.repository.Weather
-import com.gb.k_1919_2.utlis.KEY_BUNDLE_WEATHER
-import com.gb.k_1919_2.view.MainActivity
-import com.gb.k_1919_2.view.details.DetailsFragment
-import com.gb.k_1919_2.view.weatherlist.OnItemListClickListener
-import com.gb.k_1919_2.view.weatherlist.WeatherListAdapter
-import com.gb.k_1919_2.viewmodel.AppState
-import com.gb.k_1919_2.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.lang.Thread.sleep
 
 class ThreadsFragment : Fragment() {

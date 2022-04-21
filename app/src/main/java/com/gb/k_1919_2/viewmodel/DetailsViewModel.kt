@@ -6,21 +6,40 @@ import com.gb.k_1919_2.repository.*
 
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
-    private val repository: DetailsRepository = DetailsRepositoryRetrofit2Impl()
+    private val repositoryAdd: DetailsRepositoryAdd = DetailsRepositoryRoomImpl()
 ) : ViewModel() {
+
+    private var repositoryOne: DetailsRepositoryOne = DetailsRepositoryOneRetrofit2Impl()
+
 
     fun getLiveData() = liveData
 
     fun getWeather(city: City) {
         liveData.postValue(DetailsState.Loading)
-        repository.getWeatherDetails(city, object : Callback {
+        repositoryOne = if (isInternet()) {
+            DetailsRepositoryOneRetrofit2Impl()
+        } else {
+            DetailsRepositoryRoomImpl()
+        }
+        repositoryOne.getWeatherDetails(city, object : Callback {
             override fun onResponse(weather: Weather) {
                 liveData.postValue(DetailsState.Success(weather))
+                if (isInternet()){
+                    repositoryAdd.addWeather(weather)
+                }
             }
+
             override fun onFail() {
                 //  TODO HW   liveData.postValue(DetailsState.Error()) ("Not yet implemented")
             }
         })
+
+
+    }
+
+    private fun isInternet(): Boolean {
+        //!!! заглушка
+        return true
     }
 
     interface Callback {

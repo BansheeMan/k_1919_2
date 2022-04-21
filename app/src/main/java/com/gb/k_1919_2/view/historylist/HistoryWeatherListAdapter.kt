@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.gb.k_1919_2.databinding.FragmentHostoryWeatherListRecyclerItemBinding
 import com.gb.k_1919_2.databinding.FragmentWeatherListRecyclerItemBinding
 import com.gb.k_1919_2.repository.Weather
 
-class WeatherListAdapter(
-    private val onItemListClickListener: OnItemListClickListener,
+class HistoryWeatherListAdapter(
     private var data: List<Weather> = listOf()
 ) :
-    RecyclerView.Adapter<WeatherListAdapter.CityHolder>() {
+    RecyclerView.Adapter<HistoryWeatherListAdapter.CityHolder>() {
 
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
@@ -19,7 +19,7 @@ class WeatherListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
-        val binding = FragmentWeatherListRecyclerItemBinding.inflate(
+        val binding = FragmentHostoryWeatherListRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -35,13 +35,14 @@ class WeatherListAdapter(
 
     inner class CityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(weather: Weather) {
-            FragmentWeatherListRecyclerItemBinding.bind(itemView).apply {
+            FragmentHostoryWeatherListRecyclerItemBinding.bind(itemView).apply {
                 tvCityName.text = weather.city.name
-                root.setOnClickListener {
-                    onItemListClickListener.onItemClick(weather)
-                }
+                tvTemperature.text = weather.temperature.toString()
+                tvFeelsLike.text = weather.feelsLike.toString()
+                //TODO HW вызвать отображение weather.icon
             }
         }
     }
+
 
 }

@@ -5,12 +5,11 @@ import com.gb.k_1919_2.repository.dto.WeatherDTO
 import com.gb.k_1919_2.utlis.YANDEX_DOMAIN
 import com.gb.k_1919_2.utlis.convertDtoToModel
 import com.gb.k_1919_2.viewmodel.DetailsViewModel
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DetailsRepositoryRetrofit2Impl:DetailsRepository {
+class DetailsRepositoryOneRetrofit2Impl:DetailsRepositoryOne {
     override fun getWeatherDetails(city: City, callbackMy: DetailsViewModel.Callback) {
         val weatherAPI = Retrofit.Builder().apply {
             baseUrl(YANDEX_DOMAIN)
