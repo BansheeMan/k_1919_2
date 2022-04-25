@@ -9,5 +9,6 @@
     <string name="error">Error</string>
     <string name="reload">Reload</string>
     <string name="threads">Threads</string>
+    <string name="work_with_content_provider">WWCP</string>
 
 </resources>

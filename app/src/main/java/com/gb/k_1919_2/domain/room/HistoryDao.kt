@@ -8,6 +8,10 @@ interface HistoryDao {
     @Query("INSERT INTO history_table (city,temperature,feelsLike,icon) VALUES(:city,:temperature,:feelsLike,:icon)")
     fun nativeInsert(city: String, temperature: Int, feelsLike: Int, icon: String)
 
+   /* @Query("SELECT city_table.name,weather_table.temperature " +
+            "FROM city_table,weather_table  WHERE city_table.name=:cityName AND  weather_table.city_id==city_table.id")
+    fun someSelect(cityName: String)*/
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entity: HistoryEntity)
 
