@@ -1,42 +1,81 @@
 package com.gb.k_1919_2.lesson10
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.gb.k_1919_2.R
-import com.gb.k_1919_2.databinding.FragmentMapsBinding
 import com.gb.k_1919_2.databinding.FragmentMapsMainBinding
-import com.gb.k_1919_2.databinding.FragmentWeatherListBinding
-import com.gb.k_1919_2.view.weatherlist.WeatherListAdapter
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 
 class MapsFragment : Fragment() {
 
-
-
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
+        map = googleMap
         val moscow = LatLng(55.0, 37.0)
-        googleMap.addMarker(MarkerOptions().position(moscow).title("Marker in Moscow"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(moscow))
+        map.addMarker(MarkerOptions().position(moscow).title("Marker in Moscow"))
+        map.moveCamera(CameraUpdateFactory.newLatLng(moscow))
+        map.setOnMapLongClickListener {
+            addMarkerToArray(it)
+            drawLine()
+        }
+        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isMyLocationButtonEnabled = true
+        map.isMyLocationEnabled = true
+
     }
+
+    private lateinit var map: GoogleMap
+    private val markers: ArrayList<Marker> = arrayListOf()
+
+
+    private fun addMarkerToArray(location: LatLng) {
+        val marker = setMarker(location, markers.size.toString(), R.drawable.ic_map_pin)
+        markers.add(marker)
+    }
+
+    private fun drawLine(){
+        var previousBefore: Marker? = null
+        markers.forEach { current->
+            previousBefore?.let{  previous->
+                map.addPolyline(
+                    PolylineOptions().add(previous.position,current.position)
+                        .color(Color.RED)
+                        .width(5f))
+            }
+            previousBefore = current
+        }
+    }
+
+
+    private fun setMarker(
+        location: LatLng,
+        searchText: String,
+        resourceId: Int
+    ): Marker {
+        return map.addMarker(
+            MarkerOptions()
+                .position(location)
+                .title(searchText)
+                .icon(BitmapDescriptorFactory.fromResource(resourceId))
+        )!!
+    }
+
+
+
+
 
     private var _binding: FragmentMapsMainBinding? = null
     private val binding: FragmentMapsMainBinding
