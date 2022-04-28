@@ -43,6 +43,7 @@ class WorkWithContentProviderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
+        //getContacts()
     }
 
     private fun checkPermission() {
@@ -73,7 +74,7 @@ class WorkWithContentProviderFragment : Fragment() {
             .show()
     }
 
-    val REQUEST_CODE = 999
+    private val REQUEST_CODE = 999
     private fun mRequestPermission() {
         requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CODE)
     }
