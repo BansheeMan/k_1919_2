@@ -27,6 +27,7 @@ import com.gb.k_1919_2.view.details.DetailsFragment
 import com.gb.k_1919_2.viewmodel.AppState
 import com.gb.k_1919_2.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class WeatherListFragment : Fragment(), OnItemListClickListener {
 
@@ -129,7 +130,8 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     }
 
     fun getAddressByLocation(location: Location){
-        val geocoder = Geocoder(requireContext())
+        //val geocoder = Geocoder(requireContext())
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val timeStump = System.currentTimeMillis()
         Thread{
             val addressText = geocoder.getFromLocation(location.latitude,location.longitude,1000000)[0].getAddressLine(0)

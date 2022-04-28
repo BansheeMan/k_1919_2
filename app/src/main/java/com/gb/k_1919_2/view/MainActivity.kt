@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gb.k_1919_2.MyApp
 import com.gb.k_1919_2.R
 import com.gb.k_1919_2.databinding.FragmentWorkWithContentProviderBinding
+import com.gb.k_1919_2.lesson10.MapsFragment
 import com.gb.k_1919_2.lesson4.Lesson4
 import com.gb.k_1919_2.lesson6.MainService
 import com.gb.k_1919_2.lesson6.MyBroadcastReceiver
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
             R.id.action_work_with_content_provider->{
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, WorkWithContentProviderFragment.newInstance()).addToBackStack("").commit()
+            }
+            R.id.action_menu_google_maps->{
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, MapsFragment()).addToBackStack("").commit()
             }
         }
         return super.onOptionsItemSelected(item)
