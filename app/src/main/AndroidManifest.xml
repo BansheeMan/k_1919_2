@@ -36,6 +36,12 @@
                 <action android:name="myaction" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:exported="true"
+            android:enabled="true"
+            android:authorities="history_authority"
+            android:name=".lesson9.HistoryContentProvider"/>
     </application>
 
 </manifest>

@@ -11,4 +11,7 @@
     <string name="threads">Threads</string>
     <string name="work_with_content_provider">WWCP</string>
 
+
+    <string name="authorities">history_authority</string>
+
 </resources>
