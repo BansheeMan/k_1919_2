@@ -20,7 +20,6 @@ class MyApp:Application() {
             if(db==null){
                 if(appContext!=null){
                     db = Room.databaseBuilder(appContext!!,MyDB::class.java,"test")
-                        .allowMainThreadQueries() // TODO HW а вам нужно придумать что-то другое
                         .addMigrations(migration_1_2)
                         .addMigrations(migration_1_2)
                         .addMigrations(migration_1_2)

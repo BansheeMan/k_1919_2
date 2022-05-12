@@ -1,5 +1,6 @@
 package com.gb.k_1919_2.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.k_1919_2.repository.*
@@ -15,17 +16,21 @@ class DetailsViewModel(
     fun getLiveData() = liveData
 
     fun getWeather(city: City) {
-        liveData.postValue(DetailsState.Loading)
+        liveData.postValue((DetailsState.Loading))
         repositoryOne = if (isInternet()) {
             DetailsRepositoryOneRetrofit2Impl()
         } else {
             DetailsRepositoryRoomImpl()
         }
+        Log.d("@@@","${Thread.currentThread().name}")
         repositoryOne.getWeatherDetails(city, object : Callback {
             override fun onResponse(weather: Weather) {
-                liveData.postValue(DetailsState.Success(weather))
+                Log.d("@@@","${Thread.currentThread().name}")
+                liveData.value= (DetailsState.Success(weather))
                 if (isInternet()){
-                    repositoryAdd.addWeather(weather)
+                    Thread{
+                        repositoryAdd.addWeather(weather)
+                    }.start()
                 }
             }
 

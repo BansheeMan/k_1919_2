@@ -4,21 +4,30 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Geocoder
+import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.gb.k_1919_2.R
 import com.gb.k_1919_2.databinding.FragmentMapsMainBinding
+import com.gb.k_1919_2.repository.City
+import com.gb.k_1919_2.repository.Weather
+import com.gb.k_1919_2.utlis.KEY_BUNDLE_WEATHER
+import com.gb.k_1919_2.view.details.DetailsFragment
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment() {
 
@@ -31,10 +40,27 @@ class MapsFragment : Fragment() {
             addMarkerToArray(it)
             drawLine()
         }
+        map.setOnMapClickListener {
+            val weather = Weather(city = City(getAddressByLocation(it), it.latitude, it.longitude))
+            requireActivity().supportFragmentManager.beginTransaction().add(
+                R.id.container,
+                DetailsFragment.newInstance(Bundle().apply {
+                    putParcelable(KEY_BUNDLE_WEATHER, weather)
+                })
+            ).addToBackStack("").commit()
+        }
         map.uiSettings.isZoomControlsEnabled = true
         map.uiSettings.isMyLocationButtonEnabled = true
         map.isMyLocationEnabled = true
 
+    }
+
+    fun getAddressByLocation(location: LatLng):String{
+        //val geocoder = Geocoder(requireContext())
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val timeStump = System.currentTimeMillis()
+        val addressText = geocoder.getFromLocation(location.latitude,location.longitude,1000000)[0].getAddressLine(0)
+        return addressText
     }
 
     private lateinit var map: GoogleMap
@@ -58,6 +84,8 @@ class MapsFragment : Fragment() {
             previousBefore = current
         }
     }
+
+
 
 
     private fun setMarker(

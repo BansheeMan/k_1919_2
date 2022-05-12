@@ -56,7 +56,9 @@ class DetailsFragment : Fragment() {
             }
         })
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
-            viewModel.getWeather(it.city)
+            Thread{
+                viewModel.getWeather(it.city)
+            }.start()
         }
     }
 

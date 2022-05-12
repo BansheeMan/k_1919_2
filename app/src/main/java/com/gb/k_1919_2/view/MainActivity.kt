@@ -1,13 +1,20 @@
 package com.gb.k_1919_2.view
 
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.gb.k_1919_2.MyApp
 import com.gb.k_1919_2.R
 import com.gb.k_1919_2.databinding.FragmentWorkWithContentProviderBinding
@@ -24,6 +31,64 @@ import com.gb.k_1919_2.view.weatherlist.HistoryWeatherListFragment
 import com.gb.k_1919_2.view.weatherlist.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val NOTIFICATION_ID_LOW = 1
+        private const val NOTIFICATION_ID_HIGH = 2
+        private const val CHANNEL_ID_LOW = "channel_id_1"
+        private const val CHANNEL_ID_HIGH = "channel_id_2"
+    }
+
+    private fun push(){
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val notificationBuilderLow=NotificationCompat.Builder(this, CHANNEL_ID_LOW).apply {
+            setSmallIcon(R.drawable.ic_map_pin)
+            setContentTitle("TITLE LOW")
+            setContentText("TEXT LOW")
+            priority = NotificationManager.IMPORTANCE_LOW
+        }
+
+        val notificationBuilderHigh=NotificationCompat.Builder(this, CHANNEL_ID_HIGH).apply {
+            setSmallIcon(R.drawable.ic_map_marker)
+            setContentTitle("TITLE HIGH")
+            setContentText("TEXT HIGH")
+            priority = NotificationManager.IMPORTANCE_HIGH
+        }
+
+
+
+
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            val channelNameHigh = "Name $CHANNEL_ID_HIGH"
+            val channelDescriptionHigh = "Description $CHANNEL_ID_HIGH"
+            val channelPriorityHigh = NotificationManager.IMPORTANCE_HIGH
+            val channelHigh = NotificationChannel(CHANNEL_ID_HIGH,channelNameHigh,channelPriorityHigh).apply {
+                description = channelDescriptionHigh
+            }
+            notificationManager.createNotificationChannel(channelHigh)
+        }
+
+        notificationManager.notify(NOTIFICATION_ID_HIGH,notificationBuilderHigh.build())
+
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            val channelNameLow = "Name $CHANNEL_ID_LOW"
+            val channelDescriptionLow = "Description $CHANNEL_ID_LOW"
+            val channelPriorityLow = NotificationManager.IMPORTANCE_LOW
+            val channelLow = NotificationChannel(CHANNEL_ID_LOW,channelNameLow,channelPriorityLow).apply {
+                description = channelDescriptionLow
+            }
+            notificationManager.createNotificationChannel(channelLow)
+        }
+
+        notificationManager.notify(NOTIFICATION_ID_LOW,notificationBuilderLow.build())
+
+
+
+
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,22 +101,11 @@ class MainActivity : AppCompatActivity() {
             putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE,"Привет сервис") // TODO HW key1 - должен быть в константах
         })
 
-        val receiver  = MyBroadcastReceiver()
-        //registerReceiver(receiver, IntentFilter(KEY_WAVE))
-        registerReceiver(receiver, IntentFilter("android.intent.action.AIRPLANE_MODE"))
-        //LocalBroadcastManager.getInstance(this).registerReceiver(receiver, IntentFilter("myaction"))
+        push()
 
-        val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
-
-        val editor =  sp.edit()
-        editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN,true)
-        editor.apply()
-
-        val defaultValueIsRussian = true
-        sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN,defaultValueIsRussian)
-
-        MyApp.getHistoryDao().getAll()
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu,menu)
