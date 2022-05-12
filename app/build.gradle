@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     buildFeatures{
         viewBinding true
@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId "com.gb.k_1919_2"
         minSdk 24
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 

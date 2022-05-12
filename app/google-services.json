@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "59829872539",
+    "project_id": "kotlin-fcm-1919",
+    "storage_bucket": "kotlin-fcm-1919.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59829872539:android:3f0fdb218338ab16a9633e",
+        "android_client_info": {
+          "package_name": "com.gb.k_1919_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59829872539-gsu7m5tuvnfq8l0fviq8u354jaburs8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gb.k_1919_2",
+            "certificate_hash": "425b6d86593993ae77eb6d4068ee6771ee777dc2"
+          }
+        },
+        {
+          "client_id": "59829872539-krj33ksqc7npgba5m2k2ssbekcujqgb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCywW1k0YrPqBpJVsoWeucEc3yyEyy5pi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59829872539-krj33ksqc7npgba5m2k2ssbekcujqgb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
