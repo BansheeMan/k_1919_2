@@ -29,65 +29,12 @@ import com.gb.k_1919_2.utlis.KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN
 import com.gb.k_1919_2.utlis.KEY_SP_FILE_NAME_1
 import com.gb.k_1919_2.view.weatherlist.HistoryWeatherListFragment
 import com.gb.k_1919_2.view.weatherlist.WeatherListFragment
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        private const val NOTIFICATION_ID_LOW = 1
-        private const val NOTIFICATION_ID_HIGH = 2
-        private const val CHANNEL_ID_LOW = "channel_id_1"
-        private const val CHANNEL_ID_HIGH = "channel_id_2"
-    }
 
-    private fun push(){
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val notificationBuilderLow=NotificationCompat.Builder(this, CHANNEL_ID_LOW).apply {
-            setSmallIcon(R.drawable.ic_map_pin)
-            setContentTitle("TITLE LOW")
-            setContentText("TEXT LOW")
-            priority = NotificationManager.IMPORTANCE_LOW
-        }
-
-        val notificationBuilderHigh=NotificationCompat.Builder(this, CHANNEL_ID_HIGH).apply {
-            setSmallIcon(R.drawable.ic_map_marker)
-            setContentTitle("TITLE HIGH")
-            setContentText("TEXT HIGH")
-            priority = NotificationManager.IMPORTANCE_HIGH
-        }
-
-
-
-
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            val channelNameHigh = "Name $CHANNEL_ID_HIGH"
-            val channelDescriptionHigh = "Description $CHANNEL_ID_HIGH"
-            val channelPriorityHigh = NotificationManager.IMPORTANCE_HIGH
-            val channelHigh = NotificationChannel(CHANNEL_ID_HIGH,channelNameHigh,channelPriorityHigh).apply {
-                description = channelDescriptionHigh
-            }
-            notificationManager.createNotificationChannel(channelHigh)
-        }
-
-        notificationManager.notify(NOTIFICATION_ID_HIGH,notificationBuilderHigh.build())
-
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            val channelNameLow = "Name $CHANNEL_ID_LOW"
-            val channelDescriptionLow = "Description $CHANNEL_ID_LOW"
-            val channelPriorityLow = NotificationManager.IMPORTANCE_LOW
-            val channelLow = NotificationChannel(CHANNEL_ID_LOW,channelNameLow,channelPriorityLow).apply {
-                description = channelDescriptionLow
-            }
-            notificationManager.createNotificationChannel(channelLow)
-        }
-
-        notificationManager.notify(NOTIFICATION_ID_LOW,notificationBuilderLow.build())
-
-
-
-
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,7 +48,15 @@ class MainActivity : AppCompatActivity() {
             putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE,"Привет сервис") // TODO HW key1 - должен быть в константах
         })
 
-        push()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("mylogs_push", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+            Log.d("mylogs_push", "$token")
+        })
 
     }
 
