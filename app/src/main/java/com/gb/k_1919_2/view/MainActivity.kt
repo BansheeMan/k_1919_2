@@ -35,7 +35,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 class MainActivity : AppCompatActivity() {
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,8 +43,11 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
 
-        startService(Intent(this,MainService::class.java).apply {
-            putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE,"Привет сервис") // TODO HW key1 - должен быть в константах
+        startService(Intent(this, MainService::class.java).apply {
+            putExtra(
+                KEY_BUNDLE_ACTIVITY_MESSAGE,
+                "Привет сервис"
+            ) // TODO HW key1 - должен быть в константах
         })
 
 
@@ -61,27 +63,29 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu,menu)
+        menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.action_threads->{
+        when (item.itemId) {
+            R.id.action_threads -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ThreadsFragment.newInstance()).addToBackStack("").commit()
+                    .replace(R.id.container, ThreadsFragment.newInstance()).addToBackStack("")
+                    .commit()
             }
-            R.id.action_history->{
+            R.id.action_history -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
+                    .add(R.id.container, HistoryWeatherListFragment.newInstance())
+                    .addToBackStack("").commit()
             }
-            R.id.action_work_with_content_provider->{
+            R.id.action_work_with_content_provider -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.container, WorkWithContentProviderFragment.newInstance()).addToBackStack("").commit()
+                    .add(R.id.container, WorkWithContentProviderFragment.newInstance())
+                    .addToBackStack("").commit()
             }
-            R.id.action_menu_google_maps->{
+            R.id.action_menu_google_maps -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, MapsFragment()).addToBackStack("").commit()
             }
@@ -95,6 +99,9 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
+
+
 
 
 
