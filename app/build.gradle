@@ -30,12 +30,29 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        myRelease {
+            Properties properties = new Properties()
+            properties.load(rootProject.file("password.properties").newDataInputStream())
+            def password = properties.getProperty("password") // FIXME
+            // def password = "123456"
+
+            storeFile file("k_1919.jks")
+            storePassword = password
+            keyAlias 'k_1919'
+            keyPassword =password
+        }
+    }
+
+
+
     buildTypes {
 
         notest{
             initWith debug
         }
         release {
+            signingConfig signingConfigs.myRelease
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             multiDexEnabled true
